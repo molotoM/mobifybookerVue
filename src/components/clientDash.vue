@@ -1,22 +1,25 @@
 <template>
 <div >
-    <h1>Welcome Back {{this.$route.params.id.name}} </h1>
-    <br><button type="button" @click="bookInstallation()">BOOK INSTALLATION</button>
+    <h1>Welcome Back {{this.$route.params.id.name}}</h1>
+    <button type="button"  @click="updateInfo(this.$route.parama.id.user_id)">UPDATE INFORMATION</button>
     <br><br>
     <table id="firstTable">
         <thead>
             <tr>
                 <th>vehicle_registration</th>
                 <th>vehicle</th>
+                <th>book Inspection</th>
             </tr>
         </thead>
         <tbody>
             <tr v-for="(car, i) in cars" :key="i">
                 <td>{{car.vehicle_registration}}</td>
                 <td>{{car.make}}<br>{{car.model}}<br>{{car.colour}}</td>
+                <td><button type="button" @click="bookInsepection(car.vehicle_id)">BOOK</button></td>
             </tr>
          </tbody>
-    </table><br><br>
+    </table><br>
+    
     <h4>Appointments</h4>
     <table>
         <thead>
@@ -26,21 +29,19 @@
                 <th>status</th>
                 <th>date</th>
                 <th>technician</th>
-                <th>cancel</th>
             </tr>
         </thead>
         <tbody>
             <tr v-for="(car, i) in appointments" :key="i">
                 <td>{{car.car_reg}}</td>
-                <td>{{car.app_type}}
+                <td>{{car.app_type}}</td>
                 <td>{{car.app_status}}</td>
-                <td>{{car.app_date}}   
+                <td>{{car.app_date}} </td>  
                 <td>{{car.technician}}</td>
-                <button type="button">Cancel</button>
-    
             </tr>
          </tbody>
-    </table>
+    </table><br><br>
+    <button type="button" @click="bookInstallation()">BOOK INSTALLATION</button><br><br>
 </div>
 </template>
 
@@ -56,12 +57,12 @@ export default {
     },
     methods:{
         getCars(){
-        fetch(`http://localhost:3000/getUserId/${this.$route.params.id.user_id}`)
+        fetch(`https://obscure-everglades-78775.herokuapp.com/getUserId/${this.$route.params.id.user_id}`)
         .then(response=>response.json())
         .then(results=>(this.cars = results.user.data))
         },
         getAppoinments(){
-            fetch(`http://localhost:3000/getClientAppointments/${this.$route.params.id.user_id}`)
+            fetch(`https://obscure-everglades-78775.herokuapp.com/getClientAppointments/${this.$route.params.id.user_id}`)
             .then(results=>results.json())
             .then((response)=>(this.appointments = response.user.data))
         },
@@ -70,15 +71,23 @@ export default {
 
         },
         bookInsepection(carId){
-            fetch('http://localhost:3000/bookInspection/',{
+            let reqBody = {
+                car:carId,
+                client:this.$route.params.id.user_id
+            }
+            fetch('https://obscure-everglades-78775.herokuapp.com/bookInspection/',{
               method: "POST",
             headers: {
                 Accept: "application/json",
                     "Content-Type": "application/json"
              },
-            body: carId 
+            body: JSON.stringify(reqBody)
             })
-            .then(results=>(results.json,console.log(results)))//alert('You successfully added an inspection')
+            .then(results=>(results.json,console.log(results)))
+            .then(alert('You successfully added an inspection'))
+        },
+        updateInfo(user){
+            this.$router.push({name:'updateUser', params: {id:this.$route.params.id.user_id}})
         }
     },
    mounted(){

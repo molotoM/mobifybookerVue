@@ -80,7 +80,7 @@ export default {
         comment:this.comment
 
         }
-         fetch('http://localhost:3000/inspectionAdd/', {
+         fetch('https://obscure-everglades-78775.herokuapp.com/inspectionAdd/', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -88,9 +88,9 @@ export default {
         },
         body: JSON.stringify(sheet)
       })
-        .then(response=>{response.json(),alert('SUBMMITTED')})
-        .then(res=>this.$router.go(-1))
-        .catch(error => {
+      .then(alert('Inspection Sheet is Submitted'))
+      .then(this.$router.push({name:'techDash', params: {id:this.$route.params.user}}))
+      .catch(error => {
           console.log('This is the error: ', error);
         });
       }

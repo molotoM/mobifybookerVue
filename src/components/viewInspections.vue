@@ -37,7 +37,7 @@ export default {
     },
   methods:{
      getSpecs(){
-         fetch(`http://localhost:3000/getBooking/${this.$route.params.id}`)
+         fetch(`https://obscure-everglades-78775.herokuapp.com/getBooking/${this.$route.params.id}`)
          .then(response=>response.json())
          .then(results=>(this.inspections = results.user.data,console.log(results.user.data)))
       },
@@ -46,8 +46,8 @@ export default {
           inspectNo:this.inspections.inspection,
           deleted:this.route.params.client_number
         }
-      fetch('http://localhost:3000/cancelBooking/', {
-        method: 'PUT',
+      fetch('https://obscure-everglades-78775.herokuapp.com/cancelBooking/', {
+        method: 'PATCH',
         headers: {
          'Content-type': 'application/json; charset=UTF-8'
         },

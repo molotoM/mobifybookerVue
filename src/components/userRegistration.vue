@@ -54,7 +54,7 @@ export default {
         _cellphone_number: this.user.number,
         _email :this.user.email
       };
-      fetch("http://localhost:3000/addNewUser/", {
+      fetch("https://obscure-everglades-78775.herokuapp.com/addNewUser/", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -62,8 +62,9 @@ export default {
         },
         body: JSON.stringify(newUser)
       })
-        .then(this.$router.go(-1))
-        .catch(error => {
+      .then(alert('You have successfully registered. You can now login'))
+      .then(this.$router.go(-1))
+      .catch(error => {
           console.log("This is the error: ", error);
         });
     }

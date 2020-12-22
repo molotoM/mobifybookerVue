@@ -2,7 +2,7 @@
   "name": "vue_app",
   "version": "1.0.0",
   "description": "A Vue.js project",
-  "author": "Chulumanco <38922503+Chulumanco@users.noreply.github.com>",
+  "author": "Moloto",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",

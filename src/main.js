@@ -10,6 +10,7 @@ import clientDash from './components/clientDash'
 import techDash from './components/techDash'
 import inspectionSheet from './components/inspection'
 import newInstall from './components/newInstall'
+import updateUser from './components/updateUser'
 
 
 Vue.use(vueResource)
@@ -24,7 +25,8 @@ const router = new VueRouter({
     {path:'/client/:id', component:clientDash, name:'clientDash'},
     {path:'/technician/:id', component:techDash, name:'techDash'},
     {path:'/inspection/:id', component: inspectionSheet, name:'inspection'},
-    {path:'/newInstall/:id', component:newInstall, name:'newInstall'}
+    {path:'/newInstall/:id', component:newInstall, name:'newInstall'},
+    {path:'/updateInfo/:id', component:updateUser, name:'updateUser'}
 
   ]
 })

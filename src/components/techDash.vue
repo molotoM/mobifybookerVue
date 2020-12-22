@@ -68,12 +68,12 @@ export default {
     },
     methods:{
         unapproved(){
-        fetch(`http://localhost:3000/getRequestedApp`)
+        fetch(`https://obscure-everglades-78775.herokuapp.com/getRequestedApp`)
         .then(response=>response.json())
         .then(results=>(this.cars = results.appointments.data))
         },
         yourAppoinments(){
-            fetch(`http://localhost:3000/techAppointments/${this.$route.params.id.user_id}`)
+            fetch(`https://obscure-everglades-78775.herokuapp.com/techAppointments/${this.$route.params.id.user_id}`)
             .then(results=>results.json())
             .then((response)=>(this.approved = response.appointments.data))
         },
@@ -84,8 +84,8 @@ export default {
                 appoint_time:this.datetime,
                 technician :this.$route.params.id.user_id 
             };
-            fetch('http://localhost:3000/approveAppointments', {
-            method: 'PUT',
+            fetch('https://obscure-everglades-78775.herokuapp.com/approveAppointments', {
+            method: 'PATCH',
             headers: {
                 Accept: "application/json",
                 'Content-Type': 'application/json'
@@ -94,10 +94,10 @@ export default {
             })
         },
         inspection1(appointmentNo){
-            this.$router.push({name:'inspection', params: {id:'in',appoint:appointmentNo}})
+            this.$router.go(-1)
         },
         inspection2(appointmentNo){
-            this.$router.push({name:'inspection', params: {id:'out',appoint:appointmentNo}})
+            this.$router.go(-1)
         }
     },
    mounted(){

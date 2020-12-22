@@ -32,13 +32,13 @@ export default {
     add() {
       debugger;
       var newObj = {
-        clientNum:this.vehicle.clientNo,
+        clientNum:this.clientNo,
         reg: this.vehicle.regNO,
         model: this.vehicle.model,
         make: this.vehicle.make,
         color: this.vehicle.colour
       };
-      fetch("http://localhost:3000/addNewAppointment", {
+      fetch("https://obscure-everglades-78775.herokuapp.com/addNewAppointment", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -46,17 +46,12 @@ export default {
         },
         body: JSON.stringify(newObj)
       })
-        .then(function(res) {
-          console.log('Response: ', res.status)  
-          return res.json();
-        })
-        .then(function(data){
-            alert("Submitted");
-        })
-        .catch(error => {
+      .then(response=>{response.json(),alert('SUBMMITTED')})
+      .then(res=>this.$router.go(-1))
+      .catch(error => {
           console.log("This is the error: ", error);
-        });
-        this.$router.push({name:'bookInstall', params: {id:userid}})
+      });
+        
     },
     goBack(){ 
     }
